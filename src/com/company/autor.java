@@ -46,6 +46,6 @@ public class autor {
     }
 
     public void mostrarAutor(autor a){
-        System.out.println("\nNombre: " + a.getNombre() + "\nApellido: " + a.getApellido() + "\ngmail: " + a.getGmail() + "\nSexo: " + a.getSexo());
+        System.out.println("\tautor " + "\nNombre Completo: " + a.getNombre() + " " + a.getApellido() + "\ngmail: " + a.getGmail() + "\nSexo: " + a.getSexo());
     }
 }

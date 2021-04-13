@@ -1,15 +1,16 @@
 package com.company;
 
 import java.util.Scanner;
+import java.util.UUID;
+import java.time.*;
 
 public class Main {
 
     public static void main(String[] args) {
 	    Scanner sc = new Scanner(System.in);
         int opc;
-
 	    do {
-            System.out.println("\t Guia de Objetos II \n");
+            System.out.println("\n\n\t Guia de Objetos II \n");
             System.out.println("1. Ejercicio 1 ");
             System.out.println("2. Ejercicio 2 ");
             System.out.println("3. Ejercicio 3 ");
@@ -22,10 +23,13 @@ public class Main {
                         ejer1();
                     break;
                 case 2:
-
+                        ejer2();
                     break;
                 case 3:
 
+                    break;
+                case 0:
+                    System.out.println("Saliendo...");
                     break;
                 default:
                     System.out.println("La opcion ingresada no existe..!");
@@ -38,22 +42,29 @@ public class Main {
 
     public static void ejer1(){
         Scanner sc = new Scanner(System.in);
-        String nombre, apellido, gmail, sexo;
 
-        System.out.println("Ingrese el nombre del autor:");
-        nombre = sc.nextLine();
+        autor a = new autor("Joshua", "Bloch", "joshua@email.com", "M");
+        libro libro = new libro("Effective Java", 150, 150, a);
 
-        System.out.println("Ingrese el apellido del autor:");
-        apellido = sc.nextLine();
-
-        System.out.println("Ingrese el gmail del autor:");
-        gmail = sc.nextLine();
-
-        System.out.println("Ingrese el sexo del autor (M - F - X):");
-        sexo = sc.nextLine();
-
-
-        autor a = new autor(nombre, apellido, gmail, sexo);
+        libro.mostrarLibro(libro);
         a.mostrarAutor(a);
+        libro.cambiarPrecio(libro, 500);
+        libro.cambiarStock(libro, 50);
+        libro.mostrarlibro2(libro, a);
+    }
+
+    public static void ejer2(){
+        UUID idCliente = UUID.randomUUID();
+        String idClienteString = idCliente.toString();
+        UUID idFactura = UUID.randomUUID();
+        String idFacturaString = idFactura.toString();
+
+        cliente c = new cliente(idClienteString, "Juan", "juan@gmail.com", 50);
+        c.mostrarCliente(c);
+
+        LocalDate fecha = LocalDate.now();
+
+        factura f = new factura(idFacturaString, 400, fecha, c);
+        f.mostrarFactura(f, c);
     }
 }
