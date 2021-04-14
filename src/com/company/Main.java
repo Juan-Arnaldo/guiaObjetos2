@@ -26,7 +26,7 @@ public class Main {
                         ejer2();
                     break;
                 case 3:
-
+                        ejer3();
                     break;
                 case 0:
                     System.out.println("Saliendo...");
@@ -66,5 +66,64 @@ public class Main {
 
         factura f = new factura(idFacturaString, 400, fecha, c);
         f.mostrarFactura(f, c);
+    }
+
+    public static void ejer3(){
+        Scanner sc = new Scanner(System.in);
+        clienteBanco c = new clienteBanco(1, "Juan Martin", "M");
+        cuenta cuenta = new cuenta(2, 10000, c);
+        int opc;
+        double opc2, total;
+        do{
+            System.out.println("1. Extraer de la cuenta de " + c.getNombre());
+            System.out.println("2. Depositar de la cuenta de " + c.getNombre());
+            System.out.println("3. Ver balance de la cuenta de " + c.getNombre());
+            System.out.println("4. Ver Cliente ");
+            System.out.println("Ingrese la opcion que quiera:");
+            opc = sc.nextInt();
+            switch (opc){
+                case 1:
+                    System.out.println("Ingrese la cantidad a extraer");
+                    opc2 = sc.nextDouble();
+                    total = cuenta.getBalance() - opc2;
+                    if(total >= 0 ){
+                        cuenta.setBalance(cuenta.extraer(cuenta, opc2));
+                        System.out.println("La extraccion fue correcta\n");
+                    }else if(total < 0 && total >= -2000 ){
+                        c.setDeudor(c);
+                        cuenta.setBalance(cuenta.extraer(cuenta, opc2));
+                        System.out.println("La extraccion fue correcta, pero ahora entra como deudor\n");
+                    }else{
+                        System.out.println("La cantidad que quiere extraer es mas de lo que se le permite\n");
+                    }
+                    break;
+                case 2:
+                    System.out.println("Ingrese la cantidad a depositar");
+                    opc2 = sc.nextDouble();
+                    if(opc2 > 0){
+                        if(cuenta.getBalance() < 0 && opc2 + cuenta.getBalance() >= 0){
+                            c.setDeudor(c);
+                            cuenta.setBalance(cuenta.depositar(cuenta, opc2));
+                        }else{
+                            cuenta.setBalance(cuenta.depositar(cuenta, opc2));
+                        }
+                        System.out.println("Se deposito de forma correcta\n");
+                    }else{
+                        System.out.println("el monto que quiere depositar es incorrecto\n");
+                    }
+                    break;
+                case 3:
+                        cuenta.mostrarBalance(cuenta, c);
+                    break;
+                case 4:
+                    c.mostrarCliente(c, cuenta);
+                    break;
+                default:
+                    System.out.println("Opcion Ingresada es incorrecta...\n");
+                    break;
+
+            }
+
+        }while(opc != 0);
     }
 }
